@@ -36,10 +36,11 @@
             </div>
             @if(Auth::check()&&Auth::user()->user_type=='seeker')
             @if(!$jobs->checkApplication())
-            <home jobid={{$jobs->id}}></home>
+            <home :jobid={{$jobs->id}}></home>
             @else
             <button class="btn btn-danger my-3" style="width: 100%;">Job Applied</button>
             @endif
+            <favourite jobId={{$jobs->id}} :favourited={{$jobs->checkSaved()?'true':'false'}}></favourite>
             @else
             <a href="{{ route('login') }}"><button class="btn btn-danger my-3" style="width: 100%;">Please login to apply</button></a>
             @endif

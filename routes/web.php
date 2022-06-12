@@ -5,6 +5,7 @@ use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\EmployerRegisterController;
+use App\Http\Controllers\FavouriteController;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -52,7 +53,9 @@ Route::post('employer/register', [EmployerRegisterController::class, 'employerRe
 Route::post('/applications/{id}', [JobController::class, 'apply'])->name('apply');
 Route::get('jobs/applications', [JobController::class, 'applicant'])->name('applicant');
 
-
+//Job save route
+Route::post('/save/{id}', [FavouriteController::class, 'saveJob']);
+Route::post('/unsave/{id}', [FavouriteController::class, 'unsaveJob']);
 
 Auth::routes();
 
