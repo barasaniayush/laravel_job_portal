@@ -37,7 +37,11 @@
             @if(Auth::check()&&Auth::user()->user_type=='seeker')
             @if(!$jobs->checkApplication())
             <home jobid={{$jobs->id}}></home>
+            @else
+            <button class="btn btn-danger my-3" style="width: 100%;">Job Applied</button>
             @endif
+            @else
+            <a href="{{ route('login') }}"><button class="btn btn-danger my-3" style="width: 100%;">Please login to apply</button></a>
             @endif
         </div>
     </div>
