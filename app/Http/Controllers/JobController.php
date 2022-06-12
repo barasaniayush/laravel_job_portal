@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Company;
+use App\Models\User;
 use App\Http\Requests\JobPostRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +13,7 @@ class JobController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('employer', ['except' => array('index', 'show', 'apply', 'allJobs')]);
+        $this->middleware('employer', ['except' => array('index', 'show', 'apply', 'allJobs', 'searchJobs')]);
     }
     /**
      * Display a listing of the resource.
@@ -54,6 +55,12 @@ class JobController extends Controller
             $jobs = Job::latest()->paginate(10);
             return view('jobs.alljobs', compact('jobs'));
         }
+    }
+
+    public function searchJobs(Request $request) {
+        $keyword = $request->get('keyword');
+        $job = Job::where('title','like','%'.$keyword.'%')->get();
+        return response()->json($job);
     }
 
     /**

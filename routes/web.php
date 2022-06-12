@@ -57,6 +57,9 @@ Route::get('jobs/applications', [JobController::class, 'applicant'])->name('appl
 Route::post('/save/{id}', [FavouriteController::class, 'saveJob']);
 Route::post('/unsave/{id}', [FavouriteController::class, 'unsaveJob']);
 
+//Search Route
+Route::get('jobs/search', [JobController::class, 'searchJobs']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
