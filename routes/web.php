@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +28,7 @@ Route::post('jobs/create', [JobController::class, 'store'])->name('jobs.store');
 Route::get('jobs/{id}/edit', [JobController::class, 'edit'])->name('jobs.edit');
 Route::post('jobs/{id}/edit', [JobController::class, 'update'])->name('jobs.update');
 Route::get('jobs/my-job', [JobController::class, 'myjob'])->name('jobs.myjob');
-Route::get('jobs/alljobs', [JobController::class, 'allJob'])->name('alljobs');
+Route::get('jobs/alljobs', [JobController::class, 'allJobs'])->name('alljobs');
 
 Auth::routes();
 
@@ -39,6 +40,7 @@ Route::get('company/create', [CompanyController::class, 'create'])->name('compan
 Route::post('company/create', [CompanyController::class, 'store'])->name('company.store');
 Route::post('company/logo', [CompanyController::class, 'changeLogo'])->name('logo');
 Route::post('company/coverphoto', [CompanyController::class, 'changeCoverphoto'])->name('company.coverphoto');
+Route::get('companies', [CompanyController::class, 'company'])->name('company');
 
 //User Profile route
 Route::get('user/profile', [UserProfileController::class, 'index'])->name('user.profile');
@@ -59,6 +61,9 @@ Route::post('/unsave/{id}', [FavouriteController::class, 'unsaveJob']);
 
 //Search Route
 Route::get('jobs/search', [JobController::class, 'searchJobs']);
+
+//Category Route
+Route::get('/category/{id}/jobs', [CategoryController::class, 'index'])->name('category.index');
 
 Auth::routes();
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Company;
 use App\Models\User;
+use App\Models\Category;
 use App\Http\Requests\JobPostRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,8 +24,9 @@ class JobController extends Controller
     public function index()
     {
         $jobs = Job::all()->where('status', 1);
+        $categories = Category::with('jobs')->get();
         $companies = Company::get();
-        return view('welcome', compact('jobs', 'companies'));
+        return view('welcome', compact('jobs', 'companies', 'categories'));
     }
 
     public function company()
@@ -40,6 +42,16 @@ class JobController extends Controller
     }
     public function allJobs(Request $request)
     {
+        $search = $request->get('search');
+        $address = $request->get('address');
+        if($search && $address) {
+            $jobs = Job::with('company')->where('position','LIKE','%'.$search.'%')
+                    ->orWhere('title','LIKE','%'.$search.'%')
+                    ->orWhere('type','LIKE','%'.$search.'%')
+                    ->orWhere('address','LIKE','%'.$search.'%')
+                    ->paginate(10);
+            return view('jobs.alljobs', compact('jobs'));
+        }
         $keyword = request('title');
         $type = request('type');
         $category = request('category_id');
@@ -52,7 +64,7 @@ class JobController extends Controller
                 ->paginate(10);
                 return view('jobs.alljobs',compact('jobs'));
         } else {
-            $jobs = Job::latest()->paginate(10);
+            $jobs = Job::latest()->paginate(2);
             return view('jobs.alljobs', compact('jobs'));
         }
     }

@@ -1,63 +1,86 @@
-@extends('layouts.app')
+@extends('layouts.main')
+@section('content')<br><br><br><br><br>
 
-@section('content')
 <div class="container">
     <div class="row">
         <form action="{{route('alljobs')}}" method="GET">
             <div class="form-inline">
-                <div class="form-group">
-                    <label for="">Keyword&nbsp;</label>
-                    <input type="text" name="title" id="title" class="form-control">&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="form-group my-5">
+                    <label>Position&nbsp;</label>
+                    <input type="text" name="position" class="form-control" placeholder="job position">&nbsp;&nbsp;&nbsp;
                 </div>
                 <div class="form-group">
-                    <label for="">Employement Type&nbsp;</label>
-                    <select name="type" id="type" class="form-control">
-                        <option value="">Choose any one</option>
-                        <option value="fulltime">Full Time</option>
-                        <option value="parttime">Part Time</option>
-                        <option value="freelance">Freelance</option>
+                    <label>Employment &nbsp;</label>
+                    <select class="form-control" name="type">
+                        <option value="">-select-</option>
+                        <option value="fulltime">fulltime</option>
+                        <option value="parttime">parttime</option>
+                        <option value="freelance">freelance</option>
                     </select>
+                    &nbsp;&nbsp;
                 </div>
                 <div class="form-group">
-                    <label for="">Category&nbsp;</label>
-                    <select name="category" class="form-control">
-                        <option value="">Choose any one</option>
+                    <label>category</label>
+                    <select name="category_id" class="form-control">
+                        <option value="">-select-</option>
                         @foreach(App\Models\Category::all() as $cat)
-                        <option value="{{$cat->id}}" class="form-control">{{$cat->name}}</option>
+                        <option value="{{$cat->id}}">{{$cat->name}}</option>
                         @endforeach
-                    </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </select>
+                    &nbsp;&nbsp;
                 </div>
                 <div class="form-group">
-                    <label for="">Address&nbsp;</label>
-                    <input type="text" name="address" id="address" class="form-control">&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>address</label>
+                    <input type="text" name="address" class="form-control" placeholder="address">&nbsp;&nbsp;
                 </div>
-                <button type="submit" class="btn btn-outline-success">Search</button>
-            </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-search btn-primary btn-block" value="Search">
+                </div>
+            </div> <br>
         </form>
-        <h1>Recent Jobs</h1>
-        <table class="table my-5">
-            <thead>
-                <th>Logo</th>
-                <th>Position</th>
-                <th>Address</th>
-                <th>Posted on</th>
-                <th>Action</th>
-            </thead>
-            <tbody>
+
+        <div class="col-md-12">
+            <div class="rounded border jobs-wrap">
+                @if(count($jobs)>0)
                 @foreach($jobs as $job)
-                <tr>
-                    <td><img src="{{asset('uploads/logo')}}/{{$job->company->logo}}" height="60px" width="60px" alt="" srcset=""></td>
-                    <td>{{$job->position}}<br>
-                        <i class="fa fa-clock" aria-hidden="true">&nbsp;{{$job->type}}</i>
-                    </td>
-                    <td><i class="fa fa-map-marker" aria-hidden="true"></i> {{$job->address}}</td>
-                    <td><i class="fa fa-globe" aria-hidden="true">{{$job->created_at->diffForHumans()}}</td>
-                    <td><a href="{{route('jobs.show', [$job->id,$job->slug])}}"><button class="btn btn-success">View</button></a></td>
-                </tr>
+                <a href="{{route('jobs.show',[$job->id,$job->slug])}}" class="job-item d-block d-md-flex align-items-center  border-bottom @if($job->type=='parttime') partime @elseif($job->type=='fulltime')fulltime @else freelance   @endif;">
+                    <div class="company-logo blank-logo text-center text-md-left pl-3">
+                        <img src="{{asset('uploads/logo')}}/{{$job->company->logo}}" alt="Image" class="img-fluid mx-auto">
+                    </div>
+                    <div class="job-details h-100">
+                        <div class="p-3 align-self-center">
+                            <h3>{{$job->title}}</h3>
+                            <div class="d-block d-lg-flex">
+                                <div class="mr-3"><span class="icon-suitcase mr-1"></span> {{$job->company->name}}</div>
+                                <div class="mr-3"><span class="icon-room mr-1"></span> {{$job->address}}</div>
+                                <div><span class="icon-money mr-1"></span>{{$job->position}}</div>
+                                <div>&nbsp;<span class="fa fa-clock-o mr-1"></span>{{$job->created_at->diffForHumans()}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-category align-self-center">
+                        @if($job->type=='fulltime')
+                        <div class="p-3">
+                            <span class="text-info p-2 rounded border border-info">{{$job->type}}</span>
+                        </div>
+                        @elseif($job->type=='parttime')
+                        <div class="p-3">
+                            <span class="text-danger p-2 rounded border border-danger">{{$job->type}}</span>
+                        </div>
+                        @else
+                        <div class="p-3">
+                            <span class="text-warning p-2 rounded border border-warning">{{$job->type}}</span>
+                        </div>
+                        @endif
+                    </div>
+                </a>
                 @endforeach
-            </tbody>
-        </table>
-        {{$jobs->appends(Illuminate\Support\Facades\Input::except('page'))->links()}}
+                @else
+                No jobs found
+                @endif
+            </div>
+        </div>
+        {{$jobs->links()}}
     </div>
 </div>
 @endsection

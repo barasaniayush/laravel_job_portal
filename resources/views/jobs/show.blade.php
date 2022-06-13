@@ -1,6 +1,6 @@
 @extends('layouts.main')
-@section('content')
-   <div class="album text-muted">
+@section('content')<br><br><br><br>
+   <div class="album text-muted my-5">
      <div class="container">
       @if(Session::has('message'))
 
