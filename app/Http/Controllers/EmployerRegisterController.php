@@ -24,6 +24,6 @@ class EmployerRegisterController extends Controller
             'phone'=>request('phone'),
             'address'=>request('address')
         ]);
-        return redirect()->to('login');
+        return redirect()->back();
     }
 }

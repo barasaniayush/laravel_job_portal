@@ -68,6 +68,30 @@
                             @enderror
                         </div>
                         <div class="form-group my-3">
+                            <label for="experience_year">Experience Year</label>
+                            <input type="text" name="experience_year" id="experience_year" placeholder="Enter experience period" class="form-control form-control @error('experience_year') is-invalid @enderror" value="{{old('experience_year')}}">
+                            @error('experience_year')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group my-3">
+                            <label for="gender">{{ __('Gender') }}</label>
+
+                            <div class="col-md-6">
+                                <input type="radio" name="gender" id="male" value="male"> Male &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="radio" name="gender" id="female" value="female"> Female &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="radio" name="gender" id="other" value="both"> Both
+
+                                @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group my-3">
                             <label for="type">Employee Type: </label>
                             <select name="type" class="form-control" id="">
                                 <option value="fulltime">Full Time</option>
@@ -79,6 +103,15 @@
                             <label for="vacancy">No of vacancy: </label>
                             <input type="text" name="no_of_vacancy" id="no_of_vacancy" placeholder="Enter number of vacancy" class="form-control form-control @error('no_of_vacancy') is-invalid @enderror" value="{{old('no_of_vacancy')}}">
                             @error('no_of_vacancy')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group my-3">
+                            <label for="vacancy">Salary: </label>
+                            <input type="text" name="salary" id="salary" placeholder="Enter salary" class="form-control form-control @error('salary') is-invalid @enderror" value="{{old('salary')}}">
+                            @error('salary')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

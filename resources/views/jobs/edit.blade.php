@@ -59,6 +59,24 @@
                             @enderror
                         </div>
                         <div class="form-group my-3">
+                            <label for="salary">Salary</label>
+                            <input type="text" name="salary" id="salary" placeholder="Enter salary" class="form-control form-control @error('salary') is-invalid @enderror" value="{{$jobs->salary}}">
+                            @error('salary')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group my-3">
+                            <label for="experience_year">Experience year</label>
+                            <input type="text" name="experience_year" id="experience_year" placeholder="Enter job experience" class="form-control form-control @error('experience_year') is-invalid @enderror" value="{{$jobs->experience_year}}">
+                            @error('experience_year')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group my-3">
                             <label for="address">Address: </label>
                             <input type="text" name="address" id="address" placeholder="Enter address" class="form-control form-control @error('address') is-invalid @enderror" value="{{$jobs->address}}">
                             @error('position')

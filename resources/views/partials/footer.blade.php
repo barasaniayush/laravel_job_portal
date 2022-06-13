@@ -168,5 +168,11 @@
       }
     </script>
 
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker();
+        });
+    </script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&libraries=places&callback=initAutocomplete"
         async defer></script>

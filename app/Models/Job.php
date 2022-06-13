@@ -22,7 +22,10 @@ class Job extends Model
         'slug',
         'category_id',
         'type',
-        'status'
+        'status',
+        'experience_year',
+        'salary',
+        'gender'
     ];
 
     public function getRouteKeyName() {

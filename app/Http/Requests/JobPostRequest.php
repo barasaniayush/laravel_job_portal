@@ -31,6 +31,8 @@ class JobPostRequest extends FormRequest
             'position'=>'required',
             'no_of_vacancy'=>'required',
             'last_date'=>'required',
+            'experience_year'=>'required',
+            'salary'=>'required'
         ];
     }
 }
